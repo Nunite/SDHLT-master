@@ -1,0 +1,106 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+*.obj
+*.exe
+*.tlog
+*.pdb
+*.mdl
+*.sdf
+*.opendb
+*.db
+*.suo
+*.log
+*.idb
+*.ilk
+*.user
+*.bmp
+*.iobj
+*.ipdb
+*.ipch
+*.res
+*.exp
+*.lastcodeanalysissucceeded
+*.nativecodeanalysis.all.xml
+*.nativecodeanalysis.xml
+*.aps
+*.bsc
+*.sbr
+*.db-wal
+*db-shm
+
+/src/sdhlt/.vs/
+
+/src/sdhlt/sdHLBSP/Release/
+/src/sdhlt/sdHLBSP/Release_x64/
+
+/src/sdhlt/sdHLCSG/Release/
+/src/sdhlt/sdHLCSG/Release_x64/
+
+/src/sdhlt/sdHLRAD/Release/
+/src/sdhlt/sdHLRAD/Release_x64/
+
+/src/sdhlt/sdHLVIS/Release/
+/src/sdhlt/sdHLVIS/Release_x64/
+
+/src/sdhlt/sdRIPENT/Release/
+/src/sdhlt/sdRIPENT/Release_x64/
+
+/build/
+/tools/*
+!/tools/*.fgd
+!/tools/*.wad
+!/tools/*.txt
+!/tools/lights.rad
+!/tools/wad.cfg
+
+*.zip
+
+/build*/
+.vs/SDHLT/v17/.wsuo
+.vs/SDHLT/v17/DocumentLayout.json
