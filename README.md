@@ -15,6 +15,10 @@ The main benefit of the 64-bit version is no memory allocation failures, because
 
 ## Features
 
+### Custom ClipType 
+
+If the `func_detail` keyvalue `zhlt_cliptype` value is `legacy`, the old clipping method will be used, otherwise the new clipping method will be used.
+
 ### Studiomodel shadows
 
 Entities with a `model` keyvalue, such as *env_sprite* or *cycler_sprite*, support the use of `zhlt_studioshadow 1` to flag the studiomodel as opaque to lighting. Additionally, `zhlt_shadowmode n` is used to control the shadow tracing mode.  
