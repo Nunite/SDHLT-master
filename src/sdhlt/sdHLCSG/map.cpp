@@ -951,48 +951,59 @@ bool            ParseMapEntity()
 		|| !strcmp("func_detail", ValueForKey (mapent, "classname"))
 		)
     {
-		bool is_func_detail = !strcmp("func_detail", ValueForKey(mapent, "classname"));
+		bool is_func_detail = false;
 
-        // 设置每个刷子的 is_func_detail 变量
-        for (int i = 0; i < mapent->numbrushes; i++)
-        {
-            g_mapbrushes[mapent->firstbrush + i].is_func_detail = is_func_detail;
-        }
-        // this is pretty gross, because the brushes are expected to be
-        // in linear order for each entity
-        brush_t*        temp;
-        int             newbrushes;
-        int             worldbrushes;
-        int             i;
+		// 检查是否为 func_detail 且 zhlt_cliptype 为 legacy
+		if (!strcmp("func_detail", ValueForKey(mapent, "classname")))
+		{
+			const char* cliptype_value = ValueForKey(mapent, "zhlt_cliptype");
+			if (cliptype_value && strcmp(cliptype_value, "legacy") == 0)
+			{
+				is_func_detail = true;
+			}
+		}
 
-        newbrushes = mapent->numbrushes;
-        worldbrushes = g_entities[0].numbrushes;
+		// 设置每个刷子的 is_func_detail 变量
+		for (int i = 0; i < mapent->numbrushes; i++)
+		{
+			g_mapbrushes[mapent->firstbrush + i].is_func_detail = is_func_detail;
+		}
 
-        temp = (brush_t*)Alloc(newbrushes * sizeof(brush_t));
-        memcpy(temp, g_mapbrushes + mapent->firstbrush, newbrushes * sizeof(brush_t));
+		// this is pretty gross, because the brushes are expected to be
+		// in linear order for each entity
+		brush_t*        temp;
+		int             newbrushes;
+		int             worldbrushes;
+		int             i;
 
-        for (i = 0; i < newbrushes; i++)
-        {
-            temp[i].entitynum = 0;
+		newbrushes = mapent->numbrushes;
+		worldbrushes = g_entities[0].numbrushes;
+
+		temp = (brush_t*)Alloc(newbrushes * sizeof(brush_t));
+		memcpy(temp, g_mapbrushes + mapent->firstbrush, newbrushes * sizeof(brush_t));
+
+		for (i = 0; i < newbrushes; i++)
+		{
+			temp[i].entitynum = 0;
 			temp[i].brushnum += worldbrushes;
-        }
+		}
 
-        // make space to move the brushes (overlapped copy)
-        memmove(g_mapbrushes + worldbrushes + newbrushes,
-                g_mapbrushes + worldbrushes, sizeof(brush_t) * (g_nummapbrushes - worldbrushes - newbrushes));
+		// make space to move the brushes (overlapped copy)
+		memmove(g_mapbrushes + worldbrushes + newbrushes,
+				g_mapbrushes + worldbrushes, sizeof(brush_t) * (g_nummapbrushes - worldbrushes - newbrushes));
 
-        // copy the new brushes down
-        memcpy(g_mapbrushes + worldbrushes, temp, sizeof(brush_t) * newbrushes);
+		// copy the new brushes down
+		memcpy(g_mapbrushes + worldbrushes, temp, sizeof(brush_t) * newbrushes);
 
-        // fix up indexes
-        g_numentities--;
-        g_entities[0].numbrushes += newbrushes;
-        for (i = 1; i < g_numentities; i++)
-        {
-            g_entities[i].firstbrush += newbrushes;
-        }
-        memset(mapent, 0, sizeof(*mapent));
-        Free(temp);
+		// fix up indexes
+		g_numentities--;
+		g_entities[0].numbrushes += newbrushes;
+		for (i = 1; i < g_numentities; i++)
+		{
+			g_entities[i].firstbrush += newbrushes;
+		}
+		memset(mapent, 0, sizeof(*mapent));
+		Free(temp);
 		return true;
     }
 
